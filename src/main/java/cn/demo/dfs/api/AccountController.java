@@ -24,12 +24,12 @@ public class AccountController {
     @RequestMapping(value = "/test",method = RequestMethod.GET)
     public String test( String value) {
         stringRedisTemplate.opsForValue().set("a",value);
-        System.out.println("test==================");
+        logger.info("test==================");
             return "ss";
     }
     @RequestMapping(value = "/test1",method = RequestMethod.GET)
     public String test1(@RequestParam("value") String value) {
-        System.out.println("test1==================");
+        logger.info("test1==================");
         return stringRedisTemplate.opsForValue().get("a");
     }
     }
