@@ -37,35 +37,36 @@ public class AccountController {
         return stringRedisTemplate.opsForValue().get("a");
     }
     @RequestMapping(value = "/test2",method = RequestMethod.GET)
-    public String test2(@RequestParam("value") String value) {
+    public String test2(@RequestParam("userTable") String userTable) {
+
         try {
-            HbaseDemo.createTable("user_table", new String[] { "information", "contact" });
+            HbaseDemo.createTable(userTable, new String[] { "information", "contact" });
             User user = new User("001", "xiaoming", "123456", "man", "20", "13355550021", "1232821@csdn.com");
-            HbaseDemo.insertData("user_table", user);
+            HbaseDemo.insertData(userTable, user);
             User user2 = new User("002", "xiaohong", "654321", "female", "18", "18757912212", "214214@csdn.com");
-            HbaseDemo.insertData("user_table", user2);
-            List<User> list = HbaseDemo.getAllData("user_table");
+            HbaseDemo.insertData(userTable, user2);
+            List<User> list = HbaseDemo.getAllData(userTable);
             logger.info("--------------------插入两条数据后--------------------");
             for (User user3 : list){
                 logger.info(user3.toString());
             }
             logger.info("--------------------获取原始数据-----------------------");
-            HbaseDemo.getNoDealData("user_table");
+            HbaseDemo.getNoDealData(userTable);
             logger.info("--------------------根据rowKey查询--------------------");
-            User user4 = HbaseDemo.getDataByRowKey("user_table", "user-001");
+            User user4 = HbaseDemo.getDataByRowKey(userTable, "user-001");
             logger.info(user4.toString());
             logger.info("--------------------获取指定单条数据-------------------");
-            String user_phone = HbaseDemo.getCellData("user_table", "user-001", "contact", "phone");
+            String user_phone = HbaseDemo.getCellData(userTable, "user-001", "contact", "phone");
             logger.info(user_phone);
             User user5 = new User("test-003", "xiaoguang", "789012", "man", "22", "12312132214", "856832@csdn.com");
-            HbaseDemo.insertData("user_table", user5);
-            List<User> list2 = HbaseDemo.getAllData("user_table");
+            HbaseDemo.insertData(userTable, user5);
+            List<User> list2 = HbaseDemo.getAllData(userTable);
             logger.info("--------------------插入测试数据后--------------------");
             for (User user6 : list2){
                 logger.info(user6.toString());
             }
-//            HbaseDemo.deleteByRowKey("user_table", "user-test-003");
-//            List<User> list3 = HbaseDemo.getAllData("user_table");
+//            HbaseDemo.deleteByRowKey(userTable, "user-test-003");
+//            List<User> list3 = HbaseDemo.getAllData(userTable);
 //            logger.info("--------------------删除测试数据后--------------------");
 //            for (User user7 : list3){
 //                logger.info(user7.toString());
