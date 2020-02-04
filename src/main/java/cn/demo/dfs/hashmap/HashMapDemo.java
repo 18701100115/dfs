@@ -14,7 +14,7 @@ public class HashMapDemo {
         hs.put("6","ss");
         hs.put("7","ss");
         hs.put("8","ss");
-//        hs.put("9","ss");
+        hs.put("9","ss");
         String str = hs.put("9","ss1").toString();
         System.out.println(str);
 

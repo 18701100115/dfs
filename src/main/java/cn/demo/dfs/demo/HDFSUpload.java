@@ -21,7 +21,7 @@ public class HDFSUpload {
         System.setProperty("hadoop.home.dir", "D:\\hadoop-3.1.2");
         System.out.println(System.getenv("HADOOP_HOME"));
         Configuration conf = new Configuration();
-        FileSystem fs = FileSystem.get(new URI("hdfs://192.168.26.132:9000"), conf,"root");
+        FileSystem fs = FileSystem.get(new URI("hdfs://192.168.37.132:9000"), conf,"root");
 //          fs.copyFromLocalFile(new Path("E:/mysql.json"),new Path("/aaa/2.mp3"));
 //          System.out.println("上传完毕");
              fs.copyToLocalFile(new Path("/aaa/2.mp3"),new  Path("D:/mysql.json"));
