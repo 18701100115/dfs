@@ -134,13 +134,18 @@ public class AccountController {
         List<User> list2 = hbaseDemo.getAllData(tableName);
         return "ok";
     }
-    @RequestMapping(value = "/deleteAll",method = RequestMethod.GET)
-    public String deleteAll(@RequestParam("tableName") String tableName,@RequestParam("id") String id) {
+    @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
+    public String deleteById(@RequestParam("tableName") String tableName,@RequestParam("id") String id) {
         try {
             hbaseDemo.deleteByRowKey(tableName, id);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return "ok";
+    }
+    @RequestMapping(value = "/deleteByTable",method = RequestMethod.GET)
+    public String deleteByTable(@RequestParam("tableName") String tableName) {
+            hbaseDemo.deleteTable(tableName);
         return "ok";
     }
     }
