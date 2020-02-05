@@ -73,7 +73,7 @@ public class AccountController {
     public String insertList(@RequestParam("tableName") String tableName) {
         List<User> list = new ArrayList<User>();
         try {
-            for(int i=0;i<999999999;i++){
+            for(int i=0;i<100000;i++){
                 User user = new User(UUID.randomUUID().toString().replace("-",""), "xiaohong", "654321", "female", "18", "18757912212", "214214@csdn.com");
                 list.add(user);
             }
