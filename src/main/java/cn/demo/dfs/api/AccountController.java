@@ -53,7 +53,7 @@ public class AccountController {
     @RequestMapping(value = "/createTable",method = RequestMethod.GET)
     public String createTable(@RequestParam("tableName") String tableName) {
         try {
-            hbaseDemo.createTable(tableName, new String[] { "information", "contact" });
+            hbaseDemo.createTable(tableName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,7 +97,7 @@ public class AccountController {
     public String findById(@RequestParam("tableName") String tableName,@RequestParam("id") String id) {
         User user  = null;
         try {
-              user = hbaseDemo.getDataByRowKey(tableName, id);
+              user = hbaseDemo.getDataByRowKey(tableName, id,User.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,7 +111,7 @@ public class AccountController {
     }
     @RequestMapping(value = "/findByAll",method = RequestMethod.GET)
     public String findByAll(@RequestParam("tableName") String tableName) {
-        List<User> list = hbaseDemo.getAllData(tableName);
+        List<User> list = hbaseDemo.getAllData(tableName,User.class);
         return JSONArray.toJSONString(list);
     }
     @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
