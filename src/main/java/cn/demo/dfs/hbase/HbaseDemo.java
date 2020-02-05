@@ -50,10 +50,11 @@ public class HbaseDemo {
     //插入数据
     public void insertData(String tableName, User user) throws IOException {
         TableName tablename = TableName.valueOf(tableName);
-        Put put = new Put(("user-" + user.getId()).getBytes());
+        Put put = new Put(user.getId().getBytes());
         //参数：1.列族名  2.列名  3.值
         put.addColumn("information".getBytes(), "username".getBytes(), user.getUsername().getBytes()) ;
         put.addColumn("information".getBytes(), "age".getBytes(), user.getAge().getBytes()) ;
+        put.addColumn("information".getBytes(), "password".getBytes(), user.getPassword().getBytes()) ;
         put.addColumn("information".getBytes(), "gender".getBytes(), user.getGender().getBytes()) ;
         put.addColumn("contact".getBytes(), "phone".getBytes(), user.getPhone().getBytes());
         put.addColumn("contact".getBytes(), "email".getBytes(), user.getEmail().getBytes());
