@@ -62,6 +62,25 @@ public class HbaseDemo {
         Table table = connection.getTable(tablename);
         table.put(put);
     }
+    //插入数据
+    public void insertDataList(String tableName, List<User> userList) throws IOException {
+        TableName tablename = TableName.valueOf(tableName);
+        List<Put> putList = new ArrayList<Put>();
+        for(User user : userList){
+        Put put = new Put(user.getId().getBytes());
+        //参数：1.列族名  2.列名  3.值
+        put.addColumn("information".getBytes(), "username".getBytes(), user.getUsername().getBytes()) ;
+        put.addColumn("information".getBytes(), "age".getBytes(), user.getAge().getBytes()) ;
+        put.addColumn("information".getBytes(), "password".getBytes(), user.getPassword().getBytes()) ;
+        put.addColumn("information".getBytes(), "gender".getBytes(), user.getGender().getBytes()) ;
+        put.addColumn("contact".getBytes(), "phone".getBytes(), user.getPhone().getBytes());
+        put.addColumn("contact".getBytes(), "email".getBytes(), user.getEmail().getBytes());
+            putList.add(put);
+        }
+        //HTable table = new HTable(connection.getConfiguration(),tablename);已弃用
+        Table table = connection.getTable(tablename);
+        table.put(putList);
+    }
 
     //获取原始数据
     public ResultScanner getNoDealData(String tableName){
