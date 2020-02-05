@@ -166,6 +166,9 @@ public class HbaseDemo {
                     if (colName.equals("email")){
                         user.setEmail(value);
                     }
+                    if (colName.equals("password")){
+                        user.setPassword(value);
+                    }
                 }
                 list.add(user);
             }
