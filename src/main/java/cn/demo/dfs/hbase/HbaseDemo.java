@@ -161,9 +161,9 @@ public class HbaseDemo {
                     String value = Bytes.toString(cell.getValueArray(), cell.getValueOffset(), cell.getValueLength());
                     jsonObject.put("id",row);
                     jsonObject.put(colName,value);
-                list.add(jsonObject);
             }
-        } }catch (IOException e) {
+                list.add(jsonObject);
+            } }catch (IOException e) {
             e.printStackTrace();
         }
         return JSONArray.parseArray(JSONArray.toJSONString(list),c);
