@@ -1,8 +1,14 @@
 package cn.demo.dfs.hbase;
 
-public class User {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
+@Document(indexName = "user_index", type = "user")
+public class User {
+    @Id
     private String id;
+    @Field(analyzer = "ik_smart", searchAnalyzer = "ik_smart")
     private String userName;
     private String passWord;
     private String gender;

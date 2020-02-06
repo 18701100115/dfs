@@ -133,13 +133,11 @@ public class HbaseDemo {
                 Result res = table.get(get);
                 byte[] resByte = res.getValue(Bytes.toBytes(family), Bytes.toBytes(col));
                 return result = Bytes.toString(resByte);
-            }else{
-                return result = "查询结果不存在";
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "出现异常";
+        return null;
     }
 
     //查询指定表名中所有的数据

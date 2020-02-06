@@ -3,6 +3,7 @@ package cn.demo.dfs.api;
 import cn.demo.dfs.hbase.HbaseDemo;
 import cn.demo.dfs.hbase.User;
 import cn.demo.dfs.utils.DateFormatUtils;
+import cn.demo.dfs.utils.EsUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/account")
@@ -32,6 +34,8 @@ public class AccountController {
     private RedisTemplate<String, Object> redisTemplate;
     @Autowired
     HbaseDemo hbaseDemo;
+    @Autowired
+    EsUtils esUtils;
 
     /**
      * 开户
@@ -128,6 +132,26 @@ public class AccountController {
             hbaseDemo.deleteTable(tableName);
         return "ok";
     }
+
+    @RequestMapping(value = "/esInsert",method = RequestMethod.GET)
+    public String esInsert() {
+        User user = new User(UUID.randomUUID().toString().replace("-",""), "xiaohong", "654321", "female", "18", "18757912212", "214214@csdn.com");
+        esUtils.save(user);
+        return "ok";
+    }
+    @RequestMapping(value = "/esInsert",method = RequestMethod.GET)
+    public String esInsertList() {
+        List<User> list = new ArrayList<User>();
+        IntStream.range(0, 999).forEach(i ->
+                list.add(new User(UUID.randomUUID().toString().replace("-",""), "xiaohong", "654321", "female", "18", "18757912212", "214214@csdn.com")));
+        return "ok";
+    }
+    @RequestMapping(value = "/esFindByAll",method = RequestMethod.GET)
+    public String esFindByAll() {
+       List<User> userList = esUtils.findByAll(User.class);
+        return JSON.toJSONString(userList);
+    }
+
     }
 
 
