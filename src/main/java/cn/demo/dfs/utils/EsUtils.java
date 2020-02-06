@@ -33,7 +33,7 @@ public class EsUtils {
                 .build();
         elasticsearchTemplate.index(indexQuery);
     }
-    public void addBatch(List<Object> objs){
+    public void addBatch(List objs){
         List<IndexQuery> list = new ArrayList<IndexQuery>();
         for(Object obj : objs){
         String id = JSONObject.parseObject(JSON.toJSONString(obj)).getString("id");

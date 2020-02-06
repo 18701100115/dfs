@@ -134,16 +134,17 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/esInsert",method = RequestMethod.GET)
-    public String esInsert() {
+    public String esInsert(String value) {
         User user = new User(UUID.randomUUID().toString().replace("-",""), "xiaohong", "654321", "female", "18", "18757912212", "214214@csdn.com");
         esUtils.save(user);
         return "ok";
     }
-    @RequestMapping(value = "/esInsert",method = RequestMethod.GET)
+    @RequestMapping(value = "/esInsertList",method = RequestMethod.GET)
     public String esInsertList() {
         List<User> list = new ArrayList<User>();
         IntStream.range(0, 999).forEach(i ->
                 list.add(new User(UUID.randomUUID().toString().replace("-",""), "xiaohong", "654321", "female", "18", "18757912212", "214214@csdn.com")));
+        esUtils.addBatch(list);
         return "ok";
     }
     @RequestMapping(value = "/esFindByAll",method = RequestMethod.GET)
