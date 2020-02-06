@@ -62,7 +62,6 @@ public class DfsApplication{
     //PostConstruct注解在对象实例化执行完构造方法完成属性注入之后执行
     //调用invokeAwareMethods方法和applyBeanPostProcessorsBeforeInitialization方法
     //执行      @PostConstruct 注解的方法
-        System.setProperty("es.set.netty.runtime.available.processors", "false");
         SpringApplication.run(DfsApplication.class, args);
     }
 
