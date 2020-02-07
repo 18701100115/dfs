@@ -23,6 +23,7 @@ import java.util.List;
 @Component
 public enum SingletonTest08 {
     INSTANCE;
+    SingletonTest08() { }
     @Autowired
     ElasticsearchTemplate elasticsearchTemplate;
     public String  sayHello(){
