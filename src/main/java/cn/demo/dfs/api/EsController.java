@@ -1,6 +1,7 @@
 package cn.demo.dfs.api;
 
 import cn.demo.dfs.hbase.User;
+import cn.demo.dfs.mode.SingletonTest08;
 import cn.demo.dfs.utils.DateFormatUtils;
 import cn.demo.dfs.utils.EsUtils;
 import com.alibaba.fastjson.JSON;
@@ -31,7 +32,9 @@ public class EsController {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
-    @Autowired
+@Autowired
+    SingletonTest08 singletonTest08;
+@Autowired
     EsUtils esUtils;
 
     @RequestMapping(value = "/esInsert",method = RequestMethod.GET)
@@ -50,7 +53,7 @@ public class EsController {
     }
     @RequestMapping(value = "/esFindByAll",method = RequestMethod.GET)
     public String esFindByAll() {
-       List<User> userList = esUtils.findByAll(User.class);
+       List<User> userList = singletonTest08.findByAll(User.class);
         return JSON.toJSONString(userList);
     }
 
