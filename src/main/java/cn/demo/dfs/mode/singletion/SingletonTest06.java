@@ -1,4 +1,4 @@
-package cn.demo.dfs.mode;
+package cn.demo.dfs.mode.singletion;
 
 /***
  * 双重检查单例模式 volatile

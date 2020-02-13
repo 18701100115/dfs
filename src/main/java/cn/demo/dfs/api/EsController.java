@@ -1,24 +1,18 @@
 package cn.demo.dfs.api;
 
 import cn.demo.dfs.hbase.User;
-import cn.demo.dfs.mode.SingletonTest08;
-import cn.demo.dfs.utils.DateFormatUtils;
 import cn.demo.dfs.utils.EsUtils;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import org.apache.hadoop.hbase.client.Result;
-import org.apache.hadoop.hbase.client.ResultScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.IntStream;
@@ -32,9 +26,7 @@ public class EsController {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
-@Autowired
-    SingletonTest08 singletonTest08;
-@Autowired
+    @Autowired
     EsUtils esUtils;
 
     @RequestMapping(value = "/esInsert",method = RequestMethod.GET)
@@ -53,7 +45,7 @@ public class EsController {
     }
     @RequestMapping(value = "/esFindByAll",method = RequestMethod.GET)
     public String esFindByAll() {
-       List<User> userList = singletonTest08.findByAll(User.class);
+       List<User> userList = esUtils.findByAll(User.class);
         return JSON.toJSONString(userList);
     }
 

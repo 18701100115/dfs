@@ -1,4 +1,4 @@
-package cn.demo.dfs.mode;
+package cn.demo.dfs.mode.singletion;
 
 /***
  * 同步代码块懒汉式单例模式

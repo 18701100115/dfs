@@ -1,4 +1,4 @@
-package cn.demo.dfs.mode;
+package cn.demo.dfs.mode.singletion;
 
 /***
  * 静态代码块饿汉式

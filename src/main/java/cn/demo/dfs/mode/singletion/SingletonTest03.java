@@ -1,4 +1,4 @@
-package cn.demo.dfs.mode;
+package cn.demo.dfs.mode.singletion;
 
 /***
  * 线程不安全懒汉式单例模式
