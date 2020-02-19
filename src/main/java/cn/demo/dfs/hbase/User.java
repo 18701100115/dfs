@@ -7,7 +7,8 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import java.io.Serializable;
 
 @Document(indexName = "user_index", type = "user")
-public class User {
+public class User implements Serializable{
+    private static final long serialVersionUID = -5034479062595395589L;
     @Id
     private String id;
     @Field(analyzer = "ik_smart", searchAnalyzer = "ik_smart")
@@ -16,7 +17,7 @@ public class User {
     private String gender;
     private String age;
     private String phone;
-    private String email;
+    private transient String email;
 
     public User(String id, String userName, String passWord, String gender, String age, String phone, String email) {
         this.id = id;

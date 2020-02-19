@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+<appender name="kafkaAppender" class="com.github.danielwegener.logback.kafka.KafkaAppender">
+    <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" >
+        <customFields>{"appname":"webdemo"}</customFields>
+        <includeMdc>true</includeMdc>
+        <includeContext>true</includeContext>
+        <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+            <maxDepthPerThrowable>30</maxDepthPerThrowable>
+            <rootCauseFirst>true</rootCauseFirst>
+        </throwableConverter>
+    </encoder>
+    <topic>loges</topic>
+    <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.HostNameKeyingStrategy" />
+    <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy" />
+    <producerConfig>bootstrap.servers=127.0.0.1:9092</producerConfig>
+    <!-- don't wait for a broker to ack the reception of a batch.  -->
+    <producerConfig>acks=0</producerConfig>
+    <!-- wait up to 1000ms and collect log messages before sending them as a batch -->
+    <producerConfig>linger.ms=1000</producerConfig>
+    <!-- even if the producer buffer runs full, do not block the application but start to drop messages -->
+    <!--<producerConfig>max.block.ms=0</producerConfig>-->
+    <producerConfig>block.on.buffer.full=false</producerConfig>
+    <!-- kafka连接失败后，使用下面配置进行日志输出 -->
+    <appender-ref ref="STDOUT" />
+</appender>
+    <logger name="Application_ERROR">
+        <appender-ref ref="KafkaAppender"/>
+    </logger>
+
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="KafkaAppender" />
+    </root>
+</configuration>

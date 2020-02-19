@@ -1,7 +1,7 @@
 package cn.demo.dfs;
 
 import cn.demo.dfs.config.AppConfig;
-import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
+//import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.DependsOn;
 import javax.annotation.PostConstruct;
 
 @SpringBootApplication
-@EnableDubboConfiguration
+//@EnableDubboConfiguration
 @DependsOn
 public class DfsApplication{
 
