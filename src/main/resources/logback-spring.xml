@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
+    <appenders>
 <appender name="kafkaAppender" class="com.github.danielwegener.logback.kafka.KafkaAppender">
     <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" >
         <customFields>{"appname":"webdemo"}</customFields>
@@ -10,10 +11,10 @@
             <rootCauseFirst>true</rootCauseFirst>
         </throwableConverter>
     </encoder>
-    <topic>loges</topic>
+    <topic>kafkalog</topic>
     <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.HostNameKeyingStrategy" />
     <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy" />
-    <producerConfig>bootstrap.servers=127.0.0.1:9092</producerConfig>
+    <producerConfig>bootstrap.servers=192.168.37.131:9092</producerConfig>
     <!-- don't wait for a broker to ack the reception of a batch.  -->
     <producerConfig>acks=0</producerConfig>
     <!-- wait up to 1000ms and collect log messages before sending them as a batch -->
@@ -24,10 +25,12 @@
     <!-- kafka连接失败后，使用下面配置进行日志输出 -->
     <appender-ref ref="STDOUT" />
 </appender>
-    <logger name="Application_ERROR">
-        <appender-ref ref="KafkaAppender"/>
+    </appenders>
+    <loggers>
+    <logger name="cn.demo.dfs.api"  >
+        <appender-ref ref="kafkaAppender"/>
     </logger>
-
+    </loggers>
     <root>
         <level value="INFO" />
         <appender-ref ref="CONSOLE" />

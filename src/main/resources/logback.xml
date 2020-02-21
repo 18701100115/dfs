@@ -26,6 +26,23 @@
             <MaxFileSize>200MB</MaxFileSize>
         </triggeringPolicy>
     </appender>
+    <appender name="kafkaAppender" class="com.github.danielwegener.logback.kafka.KafkaAppender">
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%message %n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <topic>kafkalog</topic>
+        <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.NoKeyKeyingStrategy"/>
+        <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy"/>
+        　　　　 <!--注意此处应该是spring boot中的kafka配置属性-->
+        <producerConfig>bootstrap.servers=192.168.37.131:9092</producerConfig>
+        　　　　 <producerConfig>retries=1</producerConfig>
+
+        　　　　<producerConfig>batch-size=16384</producerConfig>
+        　　　　<producerConfig>buffer-memory=33554432</producerConfig>
+        　　　　<producerConfig>properties.max.request.size==2097152</producerConfig>
+    </appender>
     <!--myibatis log configure-->
     <logger name="com.apache.ibatis" level="TRACE"/>
     <logger name="cn.egg.payment.order.dao" level="DEBUG"/>
@@ -37,6 +54,7 @@
     <root level="INFO">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
+            <appender-ref ref="kafkaAppender"/>
     </root>
 
 </configuration>

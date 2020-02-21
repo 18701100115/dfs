@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="OFF">
+<!--&lt;!&ndash; Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时， 你会看到log4j2内部各种详细输出。可以设置成OFF(关闭)或Error(只输出错误信息) &ndash;&gt;-->
+<configuration >
 
-    <Appenders>
+    <appenders>
         <!-- 输出控制台日志的配置 -->
-        <Console name="console" target="SYSTEM_OUT">
+        <console name="console" target="SYSTEM_OUT">
             <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
-            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
             <!-- 输出日志的格式 -->
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss SSS} [%t] %-5level %logger{36} - %msg%n" />
-        </Console>
-       <Kafka name="Kafka" topic="kafka_log">
-            <PatternLayout pattern="%date %message"/>
-            <Property name="bootstrap.servers">192.168.37.131:9092</Property>
-        </Kafka>
-    </Appenders>
+        </console>
 
+        <!-- syncSend指是否同步等待，设为false表示发送消息后立即返回,true则会等待kafka响应后返回 -->
+        <kafka name="buried" topic="buried" syncSend="false">
+            <Filters>
+                <MarkerFilter marker="buried" onMatch="ACCEPT" onMismatch="DENY"/>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+            </Filters>
+            <patternlayout charset="UTF-8" pattern="%d{yyyy-MM-dd HH:mm:ss SSS} [%t] %-5level %logger{36} %marker - %msg%n"/>
+            <property name="bootstrap.servers" value="192.168.37.131:9092"/>
+            <property name="retries" value="0" />
+            <property name="batch.size" value="16384" />
+            <property name="buffer.memory" value="33554432" />
+        </kafka>
+
+        <async name="async">
+            <appenderRef ref="buried"/>
+        </async>
+
+    </appenders>
+        <!-- name 必填且唯一 -->
+        <!-- level 设置输出最低级别 默认error -->
+        <!-- additivity 是否在父Logger输出, 默认 true -->
     <Loggers>
-        <Root level="INFO">
-             <AppenderRef ref="Kafka"/>
-        </Root>
-         <Logger name="org.apache.kafka" level="INFO" />
+        <logger name="com.start" level="trace" additivity="true">
+            <AppenderRef ref="async" />
+        </logger>
     </Loggers>
+        <!-- 必须包含一个 Root 元素 -->
+        <root level="debug">
+            <AppenderRef ref="cn.demo.dfs.api" />
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="FILE" />
+        </root>
 </configuration>
+
+
+

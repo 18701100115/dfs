@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
+//@Component
 public class KafkaUtils {
-    @KafkaListener(topics = {"test"})
+    @KafkaListener(topics = {"kafkalog"})
     public void lis(ConsumerRecord<?, ?> record) {
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());
 
