@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -50,6 +51,7 @@ public class EsController {
     }
     @RequestMapping(value = "/esFindByAll",method = RequestMethod.GET)
     public String esFindByAll() {
+
 //        kafkaTemplate.send("kafkalog","你好");
         logger.info("es日志收集esFindByAll");
         logger.warn("es日志收集esFindByAll");

@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * 静态代理
+ * 动态代理
  */
 public class ProxyFactory   {
 
