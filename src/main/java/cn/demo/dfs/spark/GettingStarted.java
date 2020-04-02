@@ -21,10 +21,7 @@ import org.apache.spark.sql.SparkSession;
 import org.bson.Document;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public  class GettingStarted implements java .io.Serializable {
     public JavaSparkContext getSparkSession(String collectionName){
@@ -77,7 +74,7 @@ public  class GettingStarted implements java .io.Serializable {
         // Create a RDD of 10 documents
         List<Account> list =  new ArrayList<Account>();
         for(int i=0;i<10000;i++){
-            list.add(new Account(Long.valueOf(i),"用户"+RandomStringUtils.randomAlphanumeric(12),"123456"));
+            list.add(new Account(RandomStringUtils.randomAlphanumeric(12),"用户"+RandomStringUtils.randomAlphanumeric(12),"123456",new Date()));
         }
         JavaSparkContext jsc = getSparkSession("spark");
         JavaRDD<org.bson.Document> sparkDocuments = jsc.parallelize(list).map

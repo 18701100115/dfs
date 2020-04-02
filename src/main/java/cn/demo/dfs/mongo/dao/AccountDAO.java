@@ -11,7 +11,6 @@ public class AccountDAO {
     MongoTemplate mongoTemplate;
     public void insert(){
         Account account = new Account();
-        account.setId(1L);
         account.setUserName("admin");
         account.setPassWord("admin123");
         mongoTemplate.insert(account);

@@ -1,8 +1,10 @@
 package cn.demo.dfs.mongo;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by summer on 2017/5/5.
@@ -10,25 +12,28 @@ import java.io.Serializable;
 
 @Document(collection = "account")
 public class Account implements Serializable {
-    private static final long serialVersionUID = -3258839839160856613L;
-    private Long id;
+    private static final Long serialVersionUID = -3258839839160856613L;
+    private String id;
     private String userName;
     private String passWord;
+    @Indexed(name = "create_index",expireAfterSeconds =  0)
+    private Date createTime;
 
-    public Account(Long id, String userName, String passWord) {
+    public Account(String id, String userName, String passWord, Date createTime) {
         this.id = id;
         this.userName = userName;
         this.passWord = passWord;
+        this.createTime = createTime;
     }
 
     public Account() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -46,6 +51,14 @@ public class Account implements Serializable {
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override
